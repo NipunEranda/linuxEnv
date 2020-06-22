@@ -1,0 +1,163 @@
+# set to yes if you want Conky to be forked in the background
+background yes
+
+# Use Xft?
+use_xft yes
+
+# Xft font when Xft is enabled
+#xftfont FreeSans:bold:size=8
+xftfont FreeSans:bold:size=8
+
+# Text alpha when using Xft
+xftalpha 0.9
+
+# Update interval in seconds
+update_interval 1.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+
+# If own_window is yes, you may use type normal, desktop or override
+#dock
+own_window_type dock
+
+# Use pseudo transparency with own_window?
+own_window_transparent yes
+
+# If own_window_transparent is set to no, you can set the background
+colour here
+#own_window_colour black
+
+# If own_window is yes, these window manager hints may be used
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 150 800
+
+#Maximum width
+maximum_width 800
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around graphs
+draw_graph_borders no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+#stippled_borders 8
+
+# border margins
+#border_margin 1
+
+# border width
+#border_width 1
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_left
+#alignment bottom_left
+#alignment bottom_right
+#alignment none
+#alignment top_middle
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 10
+gap_y 25
+
+# Subtract file system buffers from used memory?
+no_buffers no
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Add spaces to keep things from moving about? This only affects certain objects.
+use_spacer yes
+
+default_color white
+default_shade_color 000000
+default_outline_color 222222
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+#${font size=18}$Nodename $kernel
+#${alignc}${font OpenLogos:pixelsize=40}J
+
+own_window_argb_value 0
+own_window_argb_visual yes
+own_window_colour 000000
+TEXT
+${color 20FFA1}${font OpenLogos:size=30}K ${voffset -19}${font}${kernel}
+${voffset -2} ELEMENTARY OS LOKI 0.4.01
+${color lightgrey}${hr 1} $color
+${color lightgrey}${alignc}${time %A - %d-%m-%Y - %H:%M.%S}
+${color lightgrey}${hr 1}$color
+${font FreeSans:Bold:size=8}${color 20FFA1}PROCESOR
+$color${font}Intel Celeron CPU N2830 $alignr ${freq_g cpu0}GHz
+${font}Thread 1: ${cpu cpu1}%$alignc${color 00FF82}${cpubar 10 cpu1} color
+${font}Thread 2: ${cpu cpu2}%$alignc${color 00FF82}${cpubar 10 cpu2} color
+${font}Core 1 ${alignr}${execi 30 sensors | grep 'Core 0:' | cut -c16-22}
+${font}Core 2 ${alignr}${execi 30 sensors | grep 'Core 1:' | cut -c16-22}
+${cpugraph 25, a1a1a1a1a 19BCE6}
+${color lightgrey}${hr 1}$color
+${color 20FFA1}[MEMORIJA] ${alignr}${color 20FFA1}Usage:${color lightgray} $memperc% + $swapperc%
+${color 00FF82}Ram:${color 00FF82}$mem/$memmax ${membar}
+${color 00FF82}Swap:${color 00FF82}$swap/$swapmax ${swapbar}
+${hr 1}
+${color 20FFA1}[PROCESI] ${alignr}${color 20FFA1}Total:$color $processes ${color lightgrey}Running:$color $running_processes
+
+${color 20FFA1}Procs/CPU PID CPU% MEM%$color.................................
+${top name 1}${color lightgrey}${top pid 1}$color${top cpu 1}${color lightgrey}${top mem 1}$color
+${top name 2}${color lightgrey}${top pid 2}$color${top cpu 2}${color lightgrey}${top mem 2}$color
+${top name 3}${color lightgrey}${top pid 3}$color${top cpu 3}${color lightgrey}${top mem 3}$color
+${top name 4}${color lightgrey}${top pid 4}$color${top cpu 4}${color lightgrey}${top mem 4}$color
+${top name 5}${color lightgrey}${top pid 5}$color${top cpu 5}${color lightgrey}${top mem 5}$color
+
+${color 20FFA1}Procs/MEM PID CPU% MEM%$color................................
+${top_mem name 1}${color lightgrey}${top_mem pid 1}${top_mem cpu 1}$color${top_mem mem 1}
+${top_mem name 2}${color lightgrey}${top_mem pid 2}${top_mem cpu 2}$color${top_mem mem 2}
+${top_mem name 3}${color lightgrey}${top_mem pid 3}${top_mem cpu 3}$color${top_mem mem 3}
+${top_mem name 4}${color lightgrey}${top_mem pid 4}${top_mem cpu 4}$color${top_mem mem 4}
+${top_mem name 5}${color lightgrey}${top_mem pid 5}${top_mem cpu 5}$color${top_mem mem 5}
+${color lightgrey}${hr 1}
+${color 20FFA1}[MREŽA] ${alignr}${color lightgrey}Address:$color ${addr wlp2s0f0}
+${color lightgrey}Prima:$color ${downspeedf wlp2s0f0}k/s${color lightgrey}${alignr}Šalje:$color ${upspeedf wlp2s0f0}k/s
+$color${downspeedgraph wlp2s0f0 25,113 a1a1a1a1 00FF82} $color${upspeedgraph wlp2s0f0 25,113 a1a1a1a1 19BCE6}$color
+${color lightgrey}Preuzeto:$color ${totaldown wlp2s0f0}${color lightgrey}${alignr}Poslano:$color ${totalup wlp2s0f0}
+${color lightgrey}${hr 1}
+${color 20FFA1}[DISK] ${alignr}${color lightgrey}I/O:$color ${diskio}
+${color lightgrey}Root: $color${color 00FF82}${fs_used /}/${fs_size /} ${fs_bar /}
+${color lightgrey}Home: $color${color 00FF82}${fs_used /home}/${fs_size /} ${fs_bar /}
+
+${alignc}$sysname $kernel ${color 00FF82}on $color$machine
+${alignc}${color 00FF82}Uptime:$color $uptime
+$color${stippled_hr}
+${color 20FFA1}[RHYTHMBOX]
+${if_running rhythmbox}
+${color 00FF82}Izvodac : ${exec rhythmbox-client --no-start --print-playing-format "%ta"}
+${color2}Album : ${exec rhythmbox-client --no-start --print-playing-format "%at"}
+${color2}Naziv : ${exec rhythmbox-client --no-start --print-playing-format "%tt"}
+${color 00FF82}Trajanje : ${exec rhythmbox-client --no-start --print-playing-format "%te / %td"}
+${else}
+${color2}Rhythmbox nije ukljucen---zzzzzzzzzzzzzzzzzz
+$endif
+${color 00FF82}ZVUK $stippled_hr ${font}
+${color 00FF82}${execbar amixer -c 0 sget Master| grep Mono: |cut -d "[" -f2|cut -d "%" -f1}
+${exec amixer -c 0 get Master | grep Mono: | cut -d " " -f6}
