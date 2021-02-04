@@ -1,0 +1,4 @@
+CREATE USER 'user' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
+flush privileges;
+exit

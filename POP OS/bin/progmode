@@ -1,0 +1,32 @@
+echo "Starting mysql Server..."
+sudo systemctl start mysql.service
+echo "Starting apache Server..."
+sudo systemctl start apache2.service
+
+echo "Starting ufw service..."
+sudo systemctl start ufw.service
+
+echo "Stopping ssh service..."
+sudo systemctl stop ssh.service
+
+echo "loading ufw defaults..."
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+echo "configuring firewall..."
+sudo ufw deny 22    
+sudo ufw allow 22
+sudo ufw allow 1714:1764/tcp
+sudo ufw allow proto tcp from any to any port 80,443
+sudo ufw allow 25 
+sudo ufw allow 143
+sudo ufw allow 993
+sudo ufw allow 110
+sudo ufw allow 995
+
+sudo ufw allow 8080    
+sudo ufw allow out 25  
+sudo ufw allow 3306
+
+echo "Firewall configured"
+echo "Programming Mode On"
