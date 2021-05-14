@@ -1,0 +1,21 @@
+#!/bin/bash
+while test $# -gt 0; do
+	case "$1" in
+		-i)
+			shift
+			input=$1
+			shift
+			;;
+		-o)
+			shift
+			output=$1
+			shift
+			;;
+		*)
+			echo "$1 is not a recognized flag!"
+			return 1;
+			;;
+	esac
+done
+
+python /home/nipun/Apps/tarZip.py -i $input -o $output;

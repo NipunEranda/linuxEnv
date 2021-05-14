@@ -1,0 +1,58 @@
+#!/bin/bash
+empty=""
+
+cd ~/Workplace/git/Research/Docker-Backups
+
+if [ $1 == "start" ];
+then
+	existingDocker=$(sudo docker ps -aqf "name=ubuntu")
+	if [ -z "$existingDocker" ];
+	then
+		sudo docker run -itd --name ubuntu ubuntu /bin/bash
+	else
+		sudo docker rm $existingDocker --force
+		sudo docker run -itd --name ubuntu ubuntu /bin/bash
+	fi
+elif [ $1 == "open" ];
+then
+	sudo docker exec -it ubuntu bash
+elif [ $1 == "stop" ];	
+then
+	existingDocker=$(sudo docker ps -aqf "name=ubuntu")
+	sudo docker rm $existingDocker --force
+elif [ $1 == "import" ];	
+then
+	existingDocker=$(sudo docker ps -aqf "name=ubuntu")
+	if [ -z "$existingDocker" ];
+	then
+		docker=$(docker images --filter "reference=ubuntu" -q)
+		if [ -z "$docker" ];
+		then
+			echo "Docker doesn't exist."
+			echo "Starting import process!"
+		else
+			sudo docker rmi ubuntu
+		fi
+	else
+		sudo docker rm $existingDocker --force
+		sudo docker rmi ubuntu
+	fi
+	sudo docker import ubuntu_export.iso ubuntu
+	echo "Imported successfully!"
+elif [ $1 == "export" ];	
+then
+	sudo docker export ubuntu > ubuntu_export.iso
+	echo "Exported successfully!"
+elif [ $1 == "remove" ];	
+then
+	existingDocker=$(sudo docker ps -aqf "name=ubuntu")
+	if [ -z "$existingDocker" ];
+	then
+		sudo docker rmi ubuntu
+	else
+		sudo docker rm $existingDocker --force
+		sudo docker rmi ubuntu
+	fi
+else
+	echo "dubuntu start | open"
+fi

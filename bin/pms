@@ -1,0 +1,21 @@
+#!/bin/bash
+cd ~/Workplace/git/Research/2021-234/Project_PMS
+
+if [ $1 == "b" ];
+then
+	if [ $2 == "local" ];
+	then
+		sh ./Servers/Script1.sh
+	elif [ $2 == "global" ];
+	then
+		sh ./runall.sh
+	else
+		echo "pms backend local|global"
+	fi
+elif [ $1 == "f" ];
+then
+	cd frontend
+	npm start
+else
+	echo "pms frontend ; pms backend local | global"
+fi

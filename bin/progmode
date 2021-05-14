@@ -1,0 +1,127 @@
+#!/bin/bash
+if [ $1 == 'start' ];
+then
+	echo "Starting mysql Server..."
+	sudo systemctl start mysql.service
+	echo "Starting apache Server..."
+	sudo systemctl start apache2.service
+
+	echo "Starting docker service..."
+	sudo systemctl start docker.service
+
+	echo "Starting kubernetes service..."
+	sudo systemctl start kubelet.service
+
+	echo "Starting ufw service..."
+	sudo ufw enable
+
+	echo "Stopping ssh service..."
+	sudo systemctl stop ssh.service
+
+	echo "loading ufw defaults..."
+	sudo ufw default deny incoming
+	sudo ufw default allow outgoing
+
+	echo "configuring firewall..."
+	sudo ufw deny 22    
+	sudo ufw allow 22
+	sudo ufw allow 1714:1764/tcp
+	sudo ufw allow proto tcp from any to any port 80,443
+	sudo ufw allow 25 
+	sudo ufw allow 143
+	sudo ufw allow 993
+	sudo ufw allow 110
+	sudo ufw allow 995
+
+	sudo ufw allow 8080    
+	sudo ufw allow out 25  
+	sudo ufw allow 3306
+
+	echo "Firewall configured"
+	echo "Programming Mode On"
+elif [ $1 == "stop" ];
+then
+	echo "Stoping mysql Server..."
+	sudo systemctl stop mysql.service
+
+	echo "Stoping apache Server..."
+	sudo systemctl stop apache2.service
+
+	echo "Stopping docker service..."
+	sudo systemctl stop docker.service
+
+	echo "Stopping kubernetes service..."
+        sudo systemctl start kubelet.service
+
+	echo "Restarting ssh service..."
+	sudo systemctl restart ssh.service
+
+	echo "loading ufw defaults..."
+	sudo ufw default deny incoming
+	sudo ufw default allow outgoing
+
+	echo "ufw defaults loaded"
+
+	echo "configuring firewall..."
+	sudo ufw deny 22
+	sudo ufw allow 22
+	sudo ufw allow 1714:1764/tcp
+	sudo ufw allow proto tcp from any to any port 80,443
+	sudo ufw allow 25
+	sudo ufw allow 143
+	sudo ufw allow 993
+	sudo ufw allow 110
+	sudo ufw allow 995
+
+	sudo ufw deny 8080
+	sudo ufw deny out 25
+	sudo ufw deny 3306
+
+	echo "Firewall configured"
+
+	echo "Reloading Firewall"
+	sudo ufw reload
+
+	echo "Ports are blocked."
+elif [ $1 == "anon" ];
+then
+	echo "Stoping mysql Server..."
+	sudo systemctl stop mysql.service
+
+	echo "Stoping apache Server..."
+	sudo systemctl stop apache2.service
+
+	echo "Restarting ssh service..."
+	sudo systemctl restart ssh.service
+
+	echo "loading ufw defaults..."
+	sudo ufw default deny incoming
+	sudo ufw default allow outgoing
+
+	echo "ufw defaults loaded"
+
+	echo "configuring firewall..."
+	sudo ufw deny 22
+	sudo ufw allow 22
+	sudo ufw allow 1714:1764/tcp
+	sudo ufw allow proto tcp from any to any port 80,443
+	sudo ufw allow 25
+	sudo ufw allow 143
+	sudo ufw allow 993
+	sudo ufw allow 110
+	sudo ufw allow 995
+
+	sudo ufw deny 8080
+	sudo ufw deny out 25
+	sudo ufw deny 3306
+
+	echo "Firewall configured"
+
+	echo "Reloading Firewall"
+	sudo ufw reload
+
+	echo "Ports are blocked."
+else
+	echo "progmode [start] or [stop]"
+fi
+

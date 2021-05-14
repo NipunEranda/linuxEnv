@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ $1 == "ON" ];
+then
+	echo "Hotspot Turned ON"
+	sudo create_ap wlp3s0 wlp3s0 reRouter sanduNeranda@1998
+else
+	echo "Try hotspot ON"
+fi
